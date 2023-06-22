@@ -15,6 +15,8 @@ Just run `go run main.go` from this repository to run the app on port `8080` !
 
 You can also get the latest update from [releases](https://github.com/remi-espie/calengo/releases), however **the only release available was built *with and only* for Linux x86_64**.
 
+You can also build and run a docker image from the project using `docker compose up`.
+
 You may change your `calendar_template.png` as well as your font (here `Roboto-Bold.ttf`) file, but you'll probably need to update the code.
 
 ## 📝 License
