@@ -54,8 +54,16 @@ func main() {
 			return
 		}
 
+		if req.Timestamp == 0 {
+			req.Timestamp = time.Now().Unix()
+		}
+
 		// Convert the timestamp to time.Time
 		calTime := time.Unix(req.Timestamp, 0)
+
+		if req.Locale == "" {
+			req.Locale = "UTC"
+		}
 
 		// Set the desired time locale
 		loc, err := time.LoadLocation(req.Locale)
@@ -97,8 +105,8 @@ func main() {
 }
 
 type CalendarRequest struct {
-	Timestamp int64  `form:"timestamp" binding:"required"`
-	Locale    string `form:"locale" binding:"required"`
+	Timestamp int64  `form:"timestamp"`
+	Locale    string `form:"locale"`
 }
 
 func generateCalendarImage(date time.Time, template image.Image, fontFace font.Face) *image.RGBA {

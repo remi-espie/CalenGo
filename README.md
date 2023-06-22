@@ -7,6 +7,8 @@ Add a Unix timestamp and a timezone to get a calendar icon depicting the day of 
 
 The application answer on the url `/ping` with a beautiful `pong` and most importantly on `/calendar` with the arguments `timestamp` and `locale` to get your image !
 
+On `/calendar`, you may add `timestamp` parameter, `locale` parameter, both or none ! Without `timestamp`, it will output today's date. Without `locale`, it will use `UTC` timezone.
+
 ## 🚀 Getting started
 
 Just run `go run main.go` from this repository to run the app on port `8080` !
