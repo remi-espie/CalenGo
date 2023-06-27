@@ -134,7 +134,7 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 	// Calculate the text position
 	textX := (width - textWidth) / 2
 
-	drawer.Dot = fixed.P(textX, 50+fontSize)
+	drawer.Dot = fixed.P(textX, 30+fontSize)
 
 	drawer.DrawString(date.Format("January"))
 
