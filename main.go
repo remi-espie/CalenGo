@@ -2,6 +2,7 @@ package main
 
 import (
 	"bytes"
+	"github.com/disintegration/imaging"
 	"github.com/gin-gonic/gin"
 	"github.com/golang/freetype"
 	"github.com/golang/freetype/truetype"
@@ -65,6 +66,10 @@ func main() {
 			req.Locale = "UTC"
 		}
 
+		if req.Size == 0 || req.Size > 1000 || req.Size < 50 {
+			req.Size = 1000
+		}
+
 		// Set the desired time locale
 		loc, err := time.LoadLocation(req.Locale)
 		if err != nil {
@@ -74,7 +79,7 @@ func main() {
 		calTime = calTime.In(loc)
 
 		// Generate the calendar image using calTime
-		img := generateCalendarImage(calTime, template, fontFace)
+		img := generateCalendarImage(calTime, template, fontFace, req.Size)
 
 		// Create a buffer to hold the image data
 		buf := new(bytes.Buffer)
@@ -107,18 +112,19 @@ func main() {
 type CalendarRequest struct {
 	Timestamp int64  `form:"timestamp"`
 	Locale    string `form:"locale"`
+	Size      int    `form:"size"`
 }
 
-func generateCalendarImage(date time.Time, template image.Image, fontFace font.Face) *image.RGBA {
+func generateCalendarImage(date time.Time, template image.Image, fontFace font.Face, size int) *image.NRGBA {
 	// Set the dimensions of the calendar image
 	width := template.Bounds().Dx()
 	//height := template.Bounds().Dy()
 
 	// Create a new RGBA image
-	img := image.NewRGBA(template.Bounds())
+	img := image.NewNRGBA(template.Bounds())
 
 	// Set the font face and size
-	fontSize := 52
+	fontSize := 128
 
 	draw.Draw(img, img.Bounds(), template, img.Bounds().Min, draw.Src)
 
@@ -134,7 +140,7 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 	// Calculate the text position
 	textX := (width - textWidth) / 2
 
-	drawer.Dot = fixed.P(textX, 30+fontSize)
+	drawer.Dot = fixed.P(textX, 100+fontSize)
 
 	drawer.DrawString(date.Format("January"))
 
@@ -155,7 +161,7 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 	// Calculate the text position
 	textX = (width - textWidth) / 2
 
-	drawer.Dot = fixed.P(textX, 210+fontSize)
+	drawer.Dot = fixed.P(textX, 400+fontSize)
 
 	drawer.DrawString(date.Format("02"))
 
@@ -176,9 +182,13 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 	// Calculate the text position
 	textX = (width - textWidth) / 2
 
-	drawer.Dot = fixed.P(textX, 140+fontSize)
+	drawer.Dot = fixed.P(textX, 600+fontSize)
 
 	drawer.DrawString(date.Format("Monday"))
+
+	if size != 1000 {
+		img = imaging.Resize(img, size, size, imaging.Linear)
+	}
 
 	return img
 }
@@ -195,7 +205,7 @@ func loadFont() font.Face {
 	}
 
 	return truetype.NewFace(robotoFont, &truetype.Options{
-		Size:    52,
+		Size:    128,
 		DPI:     72,
 		Hinting: 0,
 	})
