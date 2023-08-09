@@ -8,6 +8,7 @@ Add a Unix timestamp and a timezone to get a calendar icon depicting the day of 
 <div align="center">
 <img src="https://calendar.cluster-2022-2.dopolytech.fr/calendar?size=500" alt="Today's date !"/>
 </div>
+
 The application answer on the url `/ping` with a beautiful `pong` and most importantly on `/calendar` with the arguments `timestamp`, `locale` and `size` to get your image !
 
 On `/calendar`, you may add `timestamp` parameter, `locale` parameter, `size` parameter, the three of them or none at all ! 
