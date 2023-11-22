@@ -4,6 +4,7 @@ on:
   push:
     tags:
       - 'v*.*.*'
+  workflow_dispatch:
 
 env:
   REGISTRY: ghcr.io
@@ -25,6 +26,24 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: docker/metadata-action@v4
+        name: Extract metadata (tags, labels) for Docker
+        id: meta-arm64
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=semver,pattern={{ version }},suffix=-arm64
+            latest-arm64
+
+      - uses: docker/build-push-action@v4
+        name: Build and push the Docker arm64 image
+        with:
+          context: .
+          file: ./Dockerfile-arm64v8
+          push: true
+          tags: ${{ steps.meta-arm64.outputs.tags }}
+          labels: ${{ steps.meta-arm64.outputs.labels }}
 
       - uses: docker/metadata-action@v4
         name: Extract metadata (tags, labels) for Docker
