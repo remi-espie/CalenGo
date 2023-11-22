@@ -6,7 +6,7 @@ CalenGo is a simple Go program exposing an API which generate on-the-fly an imag
 Add a Unix timestamp and a timezone to get a calendar icon depicting the day of the timestamp in your timezone !
 
 <div align="center">
-<img src="https://calendar.cluster-2022-2.dopolytech.fr/calendar?size=500" alt="Today's date !"/>
+<img src="https://calengo.remi-espie.me/calendar?size=500" alt="Today's date !"/>
 </div>
 
 The application answer on the url `/ping` with a beautiful `pong` and most importantly on `/calendar` with the arguments `timestamp`, `locale` and `size` to get your image !
