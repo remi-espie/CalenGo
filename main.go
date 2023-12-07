@@ -47,6 +47,12 @@ func main() {
 		})
 	})
 
+	r.GET("/", func(c *gin.Context) {
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Hello, World !",
+		})
+	})
+
 	r.GET("/calendar", func(c *gin.Context) {
 		// Parse the request payload
 		var req CalendarRequest
