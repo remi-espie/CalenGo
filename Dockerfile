@@ -25,6 +25,6 @@ WORKDIR /app
 # Copy the built Go binary from the builder stage
 COPY --from=builder /app .
 
-EXPOSE 8080
+#EXPOSE 8080
 # Run the Go app
 CMD ["./app"]
