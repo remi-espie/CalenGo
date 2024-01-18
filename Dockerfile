@@ -17,7 +17,7 @@ COPY . .
 RUN go build -o app .
 
 # Start from a lightweight Debian image
-FROM debian:bullseye-slim AS app
+FROM debian:bookworm-slim AS app
 
 # Set the working directory inside the container
 WORKDIR /app
