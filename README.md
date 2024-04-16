@@ -14,9 +14,9 @@ The application is usually available at [https://calengo.espie.dev](https://cale
 The application answer on the url `/ping` with a beautiful `pong` and most importantly on `/calendar` with the arguments `timestamp`, `locale` and `size` to get your image !
 
 On `/calendar`, you may add `timestamp` parameter, `locale` parameter, `size` parameter, the three of them or none at all ! 
-- `timestamp` parameter allows you to send a custom timestamp a gate an image with its date.  
-Without this parameter, it will output today's date. 
-- `locale` parameter allows you to give it a custom timezone for your timestamp. It accepts timezones from [IANA Timezone Database](https://www.iana.org/time-zones)'s TZ identifier. You can also get them from [Wikipedia tz database list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).  
+- `timestamp` parameter allows you to send a custom timestamp and get an image for this timestamp.  
+Without this parameter, it will use the current timestamp.
+- `locale` parameter allows you to use a custom timezone for your timestamp. It accepts timezones from [IANA Timezone Database](https://www.iana.org/time-zones)'s TZ identifier. You can also get them from Wikipedia's [tz database list](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones).  
 Without this parameter, it will use `UTC` timezone.
 - `size` parameter allows you to output an image with a custom size, between 50x50px and 1000x1000px. Lower or higher values will return an image of 1000x1000px.   
 Without this parameter, it will output an image of 1000x1000px.
