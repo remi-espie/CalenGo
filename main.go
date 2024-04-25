@@ -124,7 +124,6 @@ type CalendarRequest struct {
 func generateCalendarImage(date time.Time, template image.Image, fontFace font.Face, size int) *image.NRGBA {
 	// Set the dimensions of the calendar image
 	width := template.Bounds().Dx()
-	//height := template.Bounds().Dy()
 
 	// Create a new RGBA image
 	img := image.NewNRGBA(template.Bounds())
@@ -134,24 +133,24 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 
 	draw.Draw(img, img.Bounds(), template, img.Bounds().Min, draw.Src)
 
-	// Create a drawer to write month on the image
-	drawer := &font.Drawer{
+	// Create a drawerMonth to write month on the image
+	drawerMonth := &font.Drawer{
 		Dst:  img,
 		Src:  image.NewUniform(color.White),
 		Face: fontFace,
 	}
 
-	textWidth := drawer.MeasureString(date.Format("January")).Round()
+	textWidthMonth := drawerMonth.MeasureString(date.Format("January")).Round()
 
 	// Calculate the text position
-	textX := (width - textWidth) / 2
+	textXMonth := (width - textWidthMonth) / 2
 
-	drawer.Dot = fixed.P(textX, 100+fontSize)
+	drawerMonth.Dot = fixed.P(textXMonth, 100+fontSize)
 
-	drawer.DrawString(date.Format("January"))
+	drawerMonth.DrawString(date.Format("January"))
 
-	// Create a drawer to write day number on the image
-	drawer = &font.Drawer{
+	// Create a drawerDate to write day number on the image
+	drawerDate := &font.Drawer{
 		Dst: img,
 		Src: image.NewUniform(color.RGBA{
 			R: 0x5B,
@@ -162,17 +161,17 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 		Face: fontFace,
 	}
 
-	textWidth = drawer.MeasureString(date.Format("02")).Round()
+	textWidthDate := drawerDate.MeasureString(date.Format("02")).Round()
 
 	// Calculate the text position
-	textX = (width - textWidth) / 2
+	textXDate := (width - textWidthDate) / 2
 
-	drawer.Dot = fixed.P(textX, 400+fontSize)
+	drawerDate.Dot = fixed.P(textXDate, 400+fontSize)
 
-	drawer.DrawString(date.Format("02"))
+	drawerDate.DrawString(date.Format("02"))
 
-	// Create a drawer to write day on the image
-	drawer = &font.Drawer{
+	// Create a drawerDay to write day on the image
+	drawerDay := &font.Drawer{
 		Dst: img,
 		Src: image.NewUniform(color.RGBA{
 			R: 0x5B,
@@ -183,14 +182,14 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 		Face: fontFace,
 	}
 
-	textWidth = drawer.MeasureString(date.Format("Monday")).Round()
+	textWidthDay := drawerDay.MeasureString(date.Format("Monday")).Round()
 
 	// Calculate the text position
-	textX = (width - textWidth) / 2
+	textXDay := (width - textWidthDay) / 2
 
-	drawer.Dot = fixed.P(textX, 600+fontSize)
+	drawerDay.Dot = fixed.P(textXDay, 600+fontSize)
 
-	drawer.DrawString(date.Format("Monday"))
+	drawerDay.DrawString(date.Format("Monday"))
 
 	if size != 1000 {
 		img = imaging.Resize(img, size, size, imaging.Linear)
