@@ -1,6 +1,7 @@
 version: '3'
 services:
-  app:
-    build: .
+  calengo:
+    image: ghcr.io/remi-espie/calengo:latest
+    restart: unless-stopped
     ports:
       - "13373:8080"
