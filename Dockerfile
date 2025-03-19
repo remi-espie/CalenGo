@@ -29,4 +29,6 @@ COPY --from=builder /app/app .
 COPY calendar_template.png .
 COPY Roboto-Bold.ttf .
 
+ENV GIN_MODE=release
+
 CMD ["./app"]
