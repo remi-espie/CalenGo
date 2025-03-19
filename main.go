@@ -42,6 +42,11 @@ func main() {
 
 	r := gin.Default()
 
+	// Serve the favicon.ico file
+	r.GET("/favicon.ico", func(c *gin.Context) {
+		c.File("./calendar_template.png")
+	})
+
 	r.GET("/", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
 			"message": "Hello, World !",
