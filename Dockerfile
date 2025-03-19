@@ -1,5 +1,5 @@
 # Start from a base Go image
-FROM golang:1.19-bullseye AS builder
+FROM golang:1.23-bullseye AS builder
 
 # Set the working directory inside the container
 WORKDIR /app
@@ -11,20 +11,22 @@ COPY go.mod go.sum ./
 RUN go mod download
 
 # Copy the app source code
-COPY . .
+COPY main.go .
+
+# Set environment variables to build a statically linked binary
+ENV CGO_ENABLED=0 GOOS=linux GOARCH=amd64
 
 # Build the Go app
 RUN go build -o app .
 
-# Start from a lightweight Debian image
-FROM debian:bookworm-slim AS app
+# Start from a scratch image
+FROM scratch AS prod
 
-# Set the working directory inside the container
 WORKDIR /app
 
 # Copy the built Go binary from the builder stage
-COPY --from=builder /app .
+COPY --from=builder /app/app .
+COPY calendar_template.png .
+COPY Roboto-Bold.ttf .
 
-#EXPOSE 8080
-# Run the Go app
 CMD ["./app"]
