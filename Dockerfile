@@ -25,6 +25,7 @@ FROM scratch AS prod
 WORKDIR /app
 
 # Copy the built Go binary from the builder stage
+COPY --from=builder /usr/share/zoneinfo /usr/share/zoneinfo
 COPY --from=builder /app/app .
 COPY calendar_template.png .
 COPY Roboto-Bold.ttf .

@@ -5,3 +5,7 @@ services:
     restart: unless-stopped
     ports:
       - "13373:8080"
+    # Change the following line to use a local calendar template and font
+#    volumes:
+#      - ./calendar_template.png:/app/calendar_template.png
+#      - ./Roboto-Bold.ttf:/app/Roboto-Bold.ttf
