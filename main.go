@@ -21,7 +21,7 @@ import (
 
 var (
 	fontFace font.Face
-	once     sync.Once
+	fontMu   sync.Mutex
 )
 
 func main() {
@@ -89,6 +89,10 @@ func main() {
 			return
 		}
 		calTime = calTime.In(loc)
+
+		// Lock the mutex before accessing fontFace
+		fontMu.Lock()
+		defer fontMu.Unlock()
 
 		// Generate the calendar image using calTime
 		img := generateCalendarImage(calTime, template, fontFace, req.Size)
@@ -205,22 +209,19 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 }
 
 func loadFont() font.Face {
-	once.Do(func() {
-		fontBytes, err := os.ReadFile("./Roboto-Bold.ttf")
-		if err != nil {
-			log.Fatal("Error reading font file")
-		}
+	fontBytes, err := os.ReadFile("./Roboto-Bold.ttf")
+	if err != nil {
+		log.Fatal("Error reading font file")
+	}
 
-		robotoFont, err := freetype.ParseFont(fontBytes)
-		if err != nil {
-			log.Fatal("Error parsing the font")
-		}
+	robotoFont, err := freetype.ParseFont(fontBytes)
+	if err != nil {
+		log.Fatal("Error parsing the font")
+	}
 
-		fontFace = truetype.NewFace(robotoFont, &truetype.Options{
-			Size:    128,
-			DPI:     72,
-			Hinting: 0,
-		})
+	return truetype.NewFace(robotoFont, &truetype.Options{
+		Size:    128,
+		DPI:     72,
+		Hinting: font.HintingNone,
 	})
-	return fontFace
 }
