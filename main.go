@@ -15,7 +15,13 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"sync"
 	"time"
+)
+
+var (
+	fontFace font.Face
+	once     sync.Once
 )
 
 func main() {
@@ -38,7 +44,7 @@ func main() {
 		log.Fatal("Failed to decode template image:", err)
 	}
 
-	fontFace := loadFont()
+	fontFace = loadFont()
 
 	r := gin.Default()
 
@@ -199,19 +205,22 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 }
 
 func loadFont() font.Face {
-	fontBytes, err := os.ReadFile("./Roboto-Bold.ttf")
-	if err != nil {
-		log.Fatal("Error reading font file")
-	}
+	once.Do(func() {
+		fontBytes, err := os.ReadFile("./Roboto-Bold.ttf")
+		if err != nil {
+			log.Fatal("Error reading font file")
+		}
 
-	robotoFont, err := freetype.ParseFont(fontBytes)
-	if err != nil {
-		log.Fatal("Error parsing the font")
-	}
+		robotoFont, err := freetype.ParseFont(fontBytes)
+		if err != nil {
+			log.Fatal("Error parsing the font")
+		}
 
-	return truetype.NewFace(robotoFont, &truetype.Options{
-		Size:    128,
-		DPI:     72,
-		Hinting: 0,
+		fontFace = truetype.NewFace(robotoFont, &truetype.Options{
+			Size:    128,
+			DPI:     72,
+			Hinting: 0,
+		})
 	})
+	return fontFace
 }
