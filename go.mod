@@ -6,7 +6,7 @@ toolchain go1.24.1
 
 require (
 	github.com/disintegration/imaging v1.6.2
-	github.com/gin-gonic/gin v1.10.0
+	github.com/gin-gonic/gin v1.10.1
 	github.com/goki/freetype v1.0.5
 	golang.org/x/image v0.27.0
 )
