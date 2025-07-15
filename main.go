@@ -2,7 +2,7 @@ package main
 
 import (
 	"bytes"
-	"github.com/disintegration/imaging"
+	"github.com/kovidgoyal/imaging"
 	"github.com/gin-gonic/gin"
 	"github.com/goki/freetype"
 	"github.com/goki/freetype/truetype"
