@@ -2,10 +2,10 @@ package main
 
 import (
 	"bytes"
-	"github.com/kovidgoyal/imaging"
 	"github.com/gin-gonic/gin"
 	"github.com/goki/freetype"
 	"github.com/goki/freetype/truetype"
+	"github.com/kovidgoyal/imaging"
 	"golang.org/x/image/font"
 	"golang.org/x/image/math/fixed"
 	"image"
