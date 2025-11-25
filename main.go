@@ -2,12 +2,6 @@ package main
 
 import (
 	"bytes"
-	"github.com/gin-gonic/gin"
-	"github.com/goki/freetype"
-	"github.com/goki/freetype/truetype"
-	"github.com/kovidgoyal/imaging"
-	"golang.org/x/image/font"
-	"golang.org/x/image/math/fixed"
 	"image"
 	"image/color"
 	"image/draw"
@@ -17,6 +11,13 @@ import (
 	"os"
 	"sync"
 	"time"
+
+	"github.com/gin-gonic/gin"
+	"github.com/goki/freetype"
+	"github.com/goki/freetype/truetype"
+	"github.com/kovidgoyal/imaging"
+	"golang.org/x/image/font"
+	"golang.org/x/image/math/fixed"
 )
 
 var (
@@ -202,7 +203,13 @@ func generateCalendarImage(date time.Time, template image.Image, fontFace font.F
 	drawerDay.DrawString(date.Format("Monday"))
 
 	if size != 1000 {
-		img = imaging.Resize(img, size, size, imaging.Linear)
+		resized := imaging.Resize(img, size, size, imaging.Linear)
+		if nr, ok := resized.(*image.NRGBA); ok {
+			img = nr
+		} else {
+			// Fallback: convertir en NRGBA si le type retourné n'est pas *image.NRGBA
+			img = imaging.Clone(resized)
+		}
 	}
 
 	return img
