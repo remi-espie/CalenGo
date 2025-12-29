@@ -7,7 +7,7 @@ toolchain go1.24.2
 require (
 	github.com/gin-gonic/gin v1.11.0
 	github.com/goki/freetype v1.0.5
-	github.com/kovidgoyal/imaging v1.8.17
+	github.com/kovidgoyal/imaging v1.8.18
 	golang.org/x/image v0.34.0
 )
 
@@ -41,7 +41,7 @@ require (
 	golang.org/x/arch v0.23.0 // indirect
 	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/net v0.47.0 // indirect
-	golang.org/x/sys v0.38.0 // indirect
+	golang.org/x/sys v0.39.0 // indirect
 	golang.org/x/text v0.32.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
 )
