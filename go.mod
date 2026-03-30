@@ -6,7 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.12.0
 	github.com/goki/freetype v1.0.5
 	github.com/kovidgoyal/imaging v1.8.20
-	golang.org/x/image v0.37.0
+	golang.org/x/image v0.38.0
 )
 
 require (
