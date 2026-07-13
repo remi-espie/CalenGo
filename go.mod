@@ -6,7 +6,7 @@ require (
 	github.com/gin-gonic/gin v1.12.0
 	github.com/goki/freetype v1.0.5
 	github.com/kovidgoyal/imaging v1.8.22
-	golang.org/x/image v0.43.0
+	golang.org/x/image v0.44.0
 )
 
 require (
@@ -40,6 +40,6 @@ require (
 	golang.org/x/crypto v0.52.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
 	golang.org/x/sys v0.46.0 // indirect
-	golang.org/x/text v0.38.0 // indirect
+	golang.org/x/text v0.40.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
 )
