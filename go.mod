@@ -1,12 +1,12 @@
 module go-calendar-icon
 
-go 1.25.0
+go 1.26.0
 
 require (
 	github.com/gin-gonic/gin v1.12.0
 	github.com/goki/freetype v1.0.5
 	github.com/kovidgoyal/imaging v1.8.23
-	golang.org/x/image v0.45.0
+	golang.org/x/image v0.46.0
 )
 
 require (
@@ -39,7 +39,7 @@ require (
 	golang.org/x/arch v0.23.0 // indirect
 	golang.org/x/crypto v0.52.0 // indirect
 	golang.org/x/net v0.55.0 // indirect
-	golang.org/x/sys v0.47.0 // indirect
-	golang.org/x/text v0.41.0 // indirect
+	golang.org/x/sys v0.48.0 // indirect
+	golang.org/x/text v0.42.0 // indirect
 	google.golang.org/protobuf v1.36.10 // indirect
 )
